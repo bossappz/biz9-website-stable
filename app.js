@@ -15,8 +15,8 @@ G_ENV=process.env.NODE_ENV;
 /* --- APP CONFIG START  --- */
 BIZ9_SERVICE_VERSION='3.4.4';
 APP_ID='19';
-APP_TITLE_ID='web19';
-APP_TITLE='BiZ9-Service';
+APP_TITLE_ID='website-19';
+APP_TITLE='BiZ9-Website';
 APP_VERSION='1.6.4'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
@@ -24,7 +24,7 @@ G_APP_PORT="1901";
 /* --- ENV CONFIG END --- */
 /* --- ENV AWS START --- */
 G_S3_SAVE=false;
-G_S3_BUCKET="biz9-service-91sep25a";
+G_S3_BUCKET="biz9-website-19";
 G_AWS_KEY="AKIAYTRK2L34AZSMYKOY";
 G_AWS_SECRET="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";
 /* --- ENV AWS END --- */
