@@ -74,7 +74,8 @@ app_config={
     app_title:APP_TITLE,
     app_id:APP_ID,
     file_path:G_FILE_SAVE_PATH,
-    g_file_url:G_FILE_URL
+    g_file_url:G_FILE_URL,
+    biz_map:false
 };
 aws_config={
     aws_key:G_AWS_KEY,
