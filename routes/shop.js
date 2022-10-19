@@ -18,7 +18,7 @@ router.get('/all/:page_current',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_list';
     helper.page_title = APP_TITLE +': Shop';
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     helper.render_list='/shop/all';
     async.series([
         function(call){
@@ -64,7 +64,7 @@ router.get('/category/:category_title/:page_current',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_list';
     helper.page_title = APP_TITLE +': Shop: '+helper.category_title;
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     helper.render_list='/category/category_title';
     async.series([
         function(call){
@@ -110,7 +110,7 @@ router.get('/checkout/success/',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_checkout_success';
     helper.page_title = APP_TITLE +': Shopping Checkout Success';
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     helper.product_order_list=[];
     async.series([
         function(call){
@@ -149,10 +149,10 @@ router.get('/checkout/success/',function(req, res) {
             }
         },
         function(call){
-            helper.order_id=G_SHOP_ORDER_ID+biz9.get_id();
+            helper.order_id=SHOP_ORDER_ID+biz9.get_id();
             for(a=0;a<helper.product_list.length;a++){
                 helper.product_list[a].tbl_id=0;
-                helper.product_list[a].data_type=G_DT_PRODUCT_ORDER;
+                helper.product_list[a].data_type=DT_PRODUCT_ORDER;
                 helper.product_list[a].order_id=helper.order_id;
             }
             call();
@@ -166,7 +166,7 @@ router.get('/checkout/success/',function(req, res) {
             if(helper.user.tbl_id!=0){
                 sql={customer_tbl_id:helper.user.tbl_id};
                 sort={};
-                biz9.delete_sql(db,G_DT_PRODUCT_CART,sql,function(error,result_list) {
+                biz9.delete_sql(db,DT_PRODUCT_CART,sql,function(error,result_list) {
                     helper.del_product_list=result_list;
                     call();
                 });
@@ -184,7 +184,7 @@ router.get('/checkout/',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_checkout';
     helper.page_title = APP_TITLE +': Shopping Checkout';
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -193,7 +193,7 @@ router.get('/checkout/',function(req, res) {
             });
         },
         function(call){
-            if(G_ENV=='test'){
+            if(ENV=='test'){
                 helper.user.first_name='first_name_'+biz9.get_id();
                 helper.user.last_name='first_name_'+biz9.get_id();
                 helper.user.company='company_'+biz9.get_id();
@@ -258,7 +258,7 @@ router.get('/checkout/success/product',function(req, res, next) {
     var helper =biz9.get_helper(req);
     helper.render='product_checkout_success';
     helper.page_title=APP_TITLE+ ': Success ';
-    helper.cms_url=G_CMS_APP_URL;
+    helper.cms_url=CMS_APP_URL;
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -274,13 +274,13 @@ router.get('/checkout/success/product',function(req, res, next) {
             });
         },
         function(call){
-            biz9.get_item(db,G_DT_PRODUCT,helper.tbl_id,function(error,result) {
+            biz9.get_item(db,DT_PRODUCT,helper.tbl_id,function(error,result) {
                 helper.item=result;
                 call();
             });
         },
         function(call){
-            product_order = biz9.get_new_item(G_DT_PRODUCT_ORDER,0);
+            product_order = biz9.get_new_item(DT_PRODUCT_ORDER,0);
             product_order.customer_tbl_id=helper.user.tbl_id;
             product_order.item_tbl_id=helper.item.tbl_id;
             product_order.item_data_type=helper.item.data_type;
@@ -299,7 +299,7 @@ router.get('/checkout/success/product',function(req, res, next) {
             if(product_order.item_download_link){
                 product_order.note="<a href='"+product_order.item_download_link +"'>Download Now </a>";
             }
-            biz9.update_item(db,G_DT_PRODUCT_ORDER,product_order,function(error,result) {
+            biz9.update_item(db,DT_PRODUCT_ORDER,product_order,function(error,result) {
                 helper.item=result;
                 call();
             });
@@ -316,7 +316,7 @@ router.get('/cart',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_cart_list';
     helper.page_title = APP_TITLE +': Shopping Cart';
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     helper.render_list='/shop/all';
     async.series([
         function(call){
@@ -366,7 +366,7 @@ router.get('/cart',function(req, res) {
 //9_cart 9_product_cart
 router.get('/get_cart_view',function(req, res) {
     var helper = biz9.get_helper(req);
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -414,7 +414,7 @@ router.get('/get_cart_view',function(req, res) {
 //9_remove_cart 9_cart remove
 router.post("/remove_cart/:tbl_id",function(req,res){
     var helper = biz9.get_helper(req);
-    helper.item = biz9.set_item_data(G_DT_PRODUCT_CART,0,req.body);
+    helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -423,7 +423,7 @@ router.post("/remove_cart/:tbl_id",function(req,res){
             });
         },
         function(call){
-            biz9.delete_item(db,G_DT_PRODUCT_CART,helper.tbl_id,function(error,result) {
+            biz9.delete_item(db,DT_PRODUCT_CART,helper.tbl_id,function(error,result) {
                 helper.item.result;
                 call();
             });
@@ -437,7 +437,7 @@ router.post("/remove_cart/:tbl_id",function(req,res){
 //9_update_cart 9_cart_update
 router.post("/update_cart/:data_type/:tbl_id",function(req,res){
     var helper = biz9.get_helper(req);
-    helper.item = biz9.set_item_data(G_DT_PRODUCT_CART,0,req.body);
+    helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -487,7 +487,7 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
             });
         },
         function(call){
-            biz9.update_item(db,G_DT_PRODUCT_CART,helper.item,function(error,result) {
+            biz9.update_item(db,DT_PRODUCT_CART,helper.item,function(error,result) {
                 helper.item=result;
                 call();
             });
@@ -501,7 +501,7 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
 //9_update_cart_list 9_cart_list
 router.post("/update_cart_list",function(req,res){
     var helper = biz9.get_helper(req);
-    helper.item = biz9.set_item_data(G_DT_PRODUCT_CART,0,req.body);
+    helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     helper.product_list=[];
     async.series([
         function(call){
@@ -531,7 +531,7 @@ router.post("/update_cart_list",function(req,res){
 
             for(a=0;a<_id_list.length;a++){
                 if(_id_list[a]){
-                    helper.product_list.push({tbl_id:_id_list[a],quantity:_quantity_list[a],data_type:G_DT_PRODUCT_CART});
+                    helper.product_list.push({tbl_id:_id_list[a],quantity:_quantity_list[a],data_type:DT_PRODUCT_CART});
                 }
             }
             call();
@@ -621,8 +621,8 @@ router.post("/create-checkout-session",async (req, res) => {
                             'card',
                         ],
                         mode: 'payment',
-                        success_url: G_URL+"/shop/checkout/success"+helper.form_url,
-                        cancel_url: G_URL+"/shop/checkout"+helper.form_url,
+                        success_url: URL+"/shop/checkout/success"+helper.form_url,
+                        cancel_url: URL+"/shop/checkout"+helper.form_url,
                     });
                     helper.checkout_redirect_url = session.url;
                     call();
@@ -647,7 +647,7 @@ router.get('/:title_url',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='product_detail';
     helper.page_title = APP_TITLE +': Shop ';
-    helper.item = biz9.get_new_item(G_DT_BLANK,0);
+    helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
