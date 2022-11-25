@@ -30,7 +30,7 @@ router.get('/all/:page_current',function(req, res) {
         },
         function(call){
             title_url='primary';
-            biz9.get_page(db,title_url,{},function(page){
+            biz9.get_page(db,title_url,{},function(error,page){
                 helper.primary=page;
                 call();
             });
@@ -55,8 +55,8 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.blog_post_list=result_list;
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.blog_post_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
@@ -107,8 +107,8 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.blog_post_list=result_list;
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.blog_post_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
@@ -150,14 +150,14 @@ router.get('/:title_url',function(req, res) {
         function(call){
             title_url='blog_post';
             sub_title_url='category_list';
-            biz9.get_sub_page(db,title_url,sub_title_url,{},function(page){
+            biz9.get_sub_page(db,title_url,sub_title_url,{},function(error,page){
                 helper.category_list=page.items;
                 call();
             });
         },
         function(call){
-            biz9.get_blog_post(db,helper.title_url,function(error,result) {
-                helper.item=result;
+            biz9.get_blog_post(db,helper.title_url,function(error,data) {
+                helper.item=data;
                 helper.page_title = APP_TITLE +': Blog Post '+ helper.item.title;
                 call();
             });
@@ -167,8 +167,8 @@ router.get('/:title_url',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.blog_post_list=result_list;
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.blog_post_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();

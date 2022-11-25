@@ -44,8 +44,8 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=12;
-            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.service_list=result_list;
+            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.service_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
@@ -56,14 +56,14 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list) {
-                helper.blog_post_list=result_list;
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list) {
+                helper.blog_post_list=data_list;
                 call();
             });
         },
 
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -97,8 +97,8 @@ router.get('/:title_url',function(req, res) {
         },
         function(call){
             sql={visible:'true',title_url:helper.title_url};
-            biz9.get_service(db,title_url,function(error,result) {
-                helper.item=result;
+            biz9.get_service(db,title_url,function(error,data) {
+                helper.item=data;
                 helper.page_title = APP_TITLE +': Blog Post '+ helper.item.title;
                 call();
             });
@@ -108,15 +108,15 @@ router.get('/:title_url',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.service_list=result_list;
+            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.service_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });

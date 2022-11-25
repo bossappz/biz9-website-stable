@@ -46,15 +46,15 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=0;
             page_size=9;
-            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.product_list=result_list;
+            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.product_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -92,15 +92,15 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=9;
-            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                helper.product_list=result_list;
+            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.product_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -140,8 +140,8 @@ router.get('/checkout/success/',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                    helper.product_list=result_list;
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                    helper.product_list=data_list;
                     call();
                 });
             }else{
@@ -158,7 +158,7 @@ router.get('/checkout/success/',function(req, res) {
             call();
         },
         function(call){
-            biz9.update_list(db,helper.product_list,function(error,result_list) {
+            biz9.update_list(db,helper.product_list,function(error,data_list) {
                 call();
             });
         },
@@ -166,15 +166,15 @@ router.get('/checkout/success/',function(req, res) {
             if(helper.user.tbl_id!=0){
                 sql={customer_tbl_id:helper.user.tbl_id};
                 sort={};
-                biz9.delete_sql(db,DT_PRODUCT_CART,sql,function(error,result_list) {
-                    helper.del_product_list=result_list;
+                biz9.delete_sql(db,DT_PRODUCT_CART,sql,function(error,data_list) {
+                    helper.del_product_list=data_list;
                     call();
                 });
             }else{
                 call();
             }
         }],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -229,8 +229,8 @@ router.get('/checkout/',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                    helper.product_list=result_list;
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                    helper.product_list=data_list;
                     call();
                 });
             }else{
@@ -248,7 +248,7 @@ router.get('/checkout/',function(req, res) {
             call();
         }
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -274,8 +274,8 @@ router.get('/checkout/success/product',function(req, res, next) {
             });
         },
         function(call){
-            biz9.get_item(db,DT_PRODUCT,helper.tbl_id,function(error,result) {
-                helper.item=result;
+            biz9.get_item(db,DT_PRODUCT,helper.tbl_id,function(error,data) {
+                helper.item=data;
                 call();
             });
         },
@@ -299,13 +299,13 @@ router.get('/checkout/success/product',function(req, res, next) {
             if(product_order.item_download_link){
                 product_order.note="<a href='"+product_order.item_download_link +"'>Download Now </a>";
             }
-            biz9.update_item(db,DT_PRODUCT_ORDER,product_order,function(error,result) {
-                helper.item=result;
+            biz9.update_item(db,DT_PRODUCT_ORDER,product_order,function(error,data) {
+                helper.item=data;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -339,8 +339,8 @@ router.get('/cart',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                    helper.product_list=result_list;
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                    helper.product_list=data_list;
                     call();
                 });
             }else{
@@ -358,7 +358,7 @@ router.get('/cart',function(req, res) {
             call();
         }
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });
@@ -388,8 +388,8 @@ router.get('/get_cart_view',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                    helper.product_list=result_list;
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                    helper.product_list=data_list;
                     call();
                 });
             }else{
@@ -406,7 +406,7 @@ router.get('/get_cart_view',function(req, res) {
             call();
         }
     ],
-        function(err, results){
+        function(err, result){
             res.send({helper:helper});
             res.end();
         });
@@ -423,13 +423,13 @@ router.post("/remove_cart/:tbl_id",function(req,res){
             });
         },
         function(call){
-            biz9.delete_item(db,DT_PRODUCT_CART,helper.tbl_id,function(error,result) {
-                helper.item.result;
+            biz9.delete_item(db,DT_PRODUCT_CART,helper.tbl_id,function(error,data) {
+                helper.item.data;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.send({helper:helper});
             res.end();
         });
@@ -468,32 +468,32 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
         function(call){
             helper.item.customer_tbl_id=helper.user.tbl_id;
             helper.item.customer_is_guest=helper.user.is_guest;
-            biz9.get_item(db,helper.data_type,helper.tbl_id,function(error,result) {
-                helper.item.item_tbl_id=result.tbl_id;
-                helper.item.item_data_type=result.data_type;
-                helper.item.item_price=result.price;
-                helper.item.item_money_price=biz9.get_money(result.price);
-                helper.item.item_title=result.title;
-                helper.item.item_quanity=result.quantity;
-                helper.item.item_category=result.category;
-                helper.item.item_title_url=result.title_url;
-                helper.item.photofilename=result.photofilename;
+            biz9.get_item(db,helper.data_type,helper.tbl_id,function(error,data) {
+                helper.item.item_tbl_id=data.tbl_id;
+                helper.item.item_data_type=data.data_type;
+                helper.item.item_price=data.price;
+                helper.item.item_money_price=biz9.get_money(data.price);
+                helper.item.item_title=data.title;
+                helper.item.item_quanity=data.quantity;
+                helper.item.item_category=data.category;
+                helper.item.item_title_url=data.title_url;
+                helper.item.photofilename=data.photofilename;
 
-                helper.item.retail_id=result.retail_id;
-                helper.item.retail_name=result.retail_name;
-                helper.item.retail_price_id=result.retail_price_id;
-                helper.item.retail_price=result.retail_price;
+                helper.item.retail_id=data.retail_id;
+                helper.item.retail_name=data.retail_name;
+                helper.item.retail_price_id=data.retail_price_id;
+                helper.item.retail_price=data.retail_price;
                 call();
             });
         },
         function(call){
-            biz9.update_item(db,DT_PRODUCT_CART,helper.item,function(error,result) {
-                helper.item=result;
+            biz9.update_item(db,DT_PRODUCT_CART,helper.item,function(error,data) {
+                helper.item=data;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.send({helper:helper});
             res.end();
         });
@@ -537,12 +537,12 @@ router.post("/update_cart_list",function(req,res){
             call();
         },
         function(call){
-            biz9.update_list(db,helper.product_list,function(error,result) {
+            biz9.update_list(db,helper.product_list,function(error,data) {
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.send({helper:helper});
             res.end();
         });
@@ -573,8 +573,8 @@ router.post("/create-checkout-session",async (req, res) => {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
-                    helper.item_list=result_list;
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                    helper.item_list=data_list;
                     call();
                 });
             }else{
@@ -633,7 +633,7 @@ router.post("/create-checkout-session",async (req, res) => {
             }
         },
     ],
-        function(err, results){
+        function(err, result){
             if(helper.validation_message){
                 res.redirect('/shop/checkout/'+helper.form_url+"&validation_message="+helper.validation_message);
             }else{
@@ -670,8 +670,8 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            biz9.get_product(db,helper.title_url,function(error,result) {
-                helper.item=result;
+            biz9.get_product(db,helper.title_url,function(error,data) {
+                helper.item=data;
                 helper.page_title = APP_TITLE +': Shop '+ helper.item.title;
                 call();
             });
@@ -681,13 +681,13 @@ router.get('/:title_url',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=9;
-            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,result_list) {
-                helper.product_list=result_list;
+            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list) {
+                helper.product_list=data_list;
                 call();
             });
         },
     ],
-        function(err, results){
+        function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();
         });

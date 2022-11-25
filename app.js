@@ -1,5 +1,6 @@
 /* --- APP REQUIRE START -- */
 async=require("async");
+os=require("os");
 busboy=require("busboy");
 cors=require("cors")
 detect=require('detect-file-type');
@@ -17,7 +18,7 @@ BIZ9_SERVICE_VERSION='3.4.4';
 APP_ID='19';
 APP_TITLE_ID='website-19';
 APP_TITLE='BiZ9-Website';
-APP_VERSION='1.8.0'
+APP_VERSION='1.7.4'
 /* --- APP CONFIG END  --- */
 /* --- ENV CONFIG START --- */
 APP_PORT="1901";
@@ -39,8 +40,8 @@ EMAIL_TO="contact@bossappz.com";
 EMAIL_FROM="contact@bossappz.com";
 /* --- ENV EMAILZ START --- */
 /* --- ENV FILE START --- */
-//FILE_SAVE_PATH="/uploads/";//local
-FILE_SAVE_PATH='/home/admin/www/service-19/public/uploads/';//aws_box
+FILE_SAVE_PATH="/uploads/";//local
+//FILE_SAVE_PATH= os.homedir()+'/www/service-19/public/uploads/';//aws_box
 //FILE_URL="/uploads/"; //box_url
 //FILE_URL="http://localhost:1901/uploads/"; //mobile_box_url
 FILE_URL="https://"+S3_BUCKET+".s3.amazonaws.com/" //aws_s3_url
@@ -72,7 +73,6 @@ data_config={
     mongo_url:MONGO_URL,
     redis_url:"127.0.0.1",
     redis_port:6379,
-    remote_restart_url:""
 };
 app_config={
     app_title_id:APP_TITLE_ID,
@@ -94,7 +94,6 @@ PHOTO_SIZE_MID={title_url:"mid_size_",size:720};
 PHOTO_SIZE_LARGE={title_url:"large_size_",size:1000};
 /* --- PHOTO-SIZE-END --- */
 /* --- BiZ9_CORE_CONFIG-START --- */
-//biz9=require("/home/mama/www/opz/productz/biz9/biz9-core/src/unstable/")(app_config,aws_config,data_config);
 biz9=require("biz9-core")(app_config,aws_config,data_config);
 /* --- BiZ9_CORE_CONFIG-END --- */
 /* --- APP URL START  -- */
