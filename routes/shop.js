@@ -42,7 +42,7 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=0;
             page_size=9;
@@ -88,7 +88,7 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true',category:helper.category_title};
+            sql={category:helper.category_title};
             sort={date_create:1};
             page_current=1;
             page_size=9;
@@ -436,7 +436,7 @@ router.post("/remove_cart/:tbl_id",function(req,res){
 });
 //9_update_cart 9_cart_update
 router.post("/update_cart/:data_type/:tbl_id",function(req,res){
-    var helper = biz9.get_helper(req);
+    var helper = biz9.get_helper_user(req);
     helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     async.series([
         function(call){
@@ -478,11 +478,6 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
                 helper.item.item_category=data.category;
                 helper.item.item_title_url=data.title_url;
                 helper.item.photofilename=data.photofilename;
-
-                helper.item.retail_id=data.retail_id;
-                helper.item.retail_name=data.retail_name;
-                helper.item.retail_price_id=data.retail_price_id;
-                helper.item.retail_price=data.retail_price;
                 call();
             });
         },
@@ -677,7 +672,7 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=1;
             page_size=9;

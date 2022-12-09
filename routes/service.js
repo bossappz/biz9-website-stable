@@ -40,7 +40,7 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=1;
             page_size=12;
@@ -52,7 +52,7 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
@@ -96,7 +96,7 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true',title_url:helper.title_url};
+            sql={title_url:helper.title_url};
             biz9.get_service(db,title_url,function(error,data) {
                 helper.item=data;
                 helper.page_title = APP_TITLE +': Blog Post '+ helper.item.title;
@@ -104,7 +104,7 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;

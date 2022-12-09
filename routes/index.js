@@ -24,7 +24,7 @@ router.get('/',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=1;
             page_size=9;
@@ -141,7 +141,7 @@ router.get('/sql',function(req, res) {
             });
         },
         function(call){
-            sql = {visible:'true'};
+            sql = {};
             sort={date_create:-1};
             page_current=helper.page_current;
             page_size=12;

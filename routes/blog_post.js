@@ -14,6 +14,7 @@ router.get('/all',function(req, res) {
 });
 //9_blog_category_all
 router.get('/category/:category',function(req, res) {
+    var helper = biz9.get_helper(req);
     res.redirect('/blog/category/'+helper.category+'/1');
 });
 router.get('/all/:page_current',function(req, res) {
@@ -21,6 +22,7 @@ router.get('/all/:page_current',function(req, res) {
     helper.render='blog_post_list';
     helper.page_title = APP_TITLE +': Blog Posts';
     helper.item = biz9.get_new_item(DT_BLANK,0);
+    helper.render_list='/blog/all';
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -51,14 +53,14 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql = {visible:'true'};
+            sql = {};
             sort={date_create:1};
-            page_current=1;
-            page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            page_size=6;
+            biz9.get_blog_postz(db,sql,sort,helper.page_current,page_size,function(error,data_list,total_count,page_page_count) {
                 helper.blog_post_list=data_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
+                helper.page_size=page_size;
                 call();
             });
         },
@@ -103,7 +105,7 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql = {visible:'true',category:helper.category_title};
+            sql = {,category:helper.category_title};
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
@@ -163,7 +165,7 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            sql={visible:'true'};
+            sql={};
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
