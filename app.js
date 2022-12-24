@@ -24,10 +24,10 @@ APP_VERSION='1.7.6'
 APP_PORT="1901";
 /* --- ENV CONFIG END --- */
 /* --- MONGO START --- */
-MONGO_IP="34.205.146.54";
+MONGO_IP="0.0.0.0";
 MONGO_PORT="27019";
-//MONGO_URL="mongodb://ban:1234567@"+MONGO_IP+":"+MONGO_PORT; //remote
-MONGO_URL="mongodb://localhost:"+MONGO_PORT; //local
+MONGO_URL="mongodb://localhost:"+MONGO_PORT+"?keepAlive=true&socketTimeoutMS=360000&connectTimeoutMS=360000"; //local
+//MONGO_URL="mongodb://ban:1234567@"+MONGO_IP+":"+MONGO_PORT+"?keepAlive=true&socketTimeoutMS=360000&connectTimeoutMS=360000"; //remote
 /* --- MONGO END --- */
 /* --- ENV AWS START --- */
 S3_SAVE=false;

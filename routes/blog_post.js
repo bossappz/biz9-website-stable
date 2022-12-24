@@ -105,7 +105,7 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql = {,category:helper.category_title};
+            sql = {category:helper.category_title};
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
