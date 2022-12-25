@@ -30,10 +30,10 @@ MONGO_URL="mongodb://localhost:"+MONGO_PORT+"?keepAlive=true&socketTimeoutMS=360
 //MONGO_URL="mongodb://ban:1234567@"+MONGO_IP+":"+MONGO_PORT+"?keepAlive=true&socketTimeoutMS=360000&connectTimeoutMS=360000"; //remote
 /* --- MONGO END --- */
 /* --- ENV AWS START --- */
-S3_SAVE=false;
-S3_BUCKET="biz9-website-19";
-AWS_KEY="AKIAYTRK2L34AZSMYKOY";
-AWS_SECRET="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";
+S3_SAVE=true;
+S3_BUCKET="ba7-app";
+AWS_KEY="AKIA3JQYFN5KARMHJVKJ";
+AWS_SECRET="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";
 /* --- ENV AWS END --- */
 /* --- ENV EMAILZ START --- */
 EMAIL_TO="contact@bossappz.com";
