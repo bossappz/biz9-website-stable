@@ -59,6 +59,11 @@ router.get('/all/:page_current',function(req, res) {
             res.end();
         });
 });
+//9_shop_category_all 9_category
+router.get('/category/:category_title/',function(req, res) {
+    var helper = biz9.get_helper_user(req);
+    res.redirect("/shop/category/"+helper.category_title+"/1");
+});
 //9_shop 9_product_category_list
 router.get('/category/:category_title/:page_current',function(req, res) {
     var helper = biz9.get_helper_user(req);
@@ -134,7 +139,7 @@ router.get('/checkout/success/',function(req, res) {
             });
         },
         function(call){
-            helper.product_list=[];
+            helper.product_cart_list=[];
             if(helper.user.tbl_id!=0){
                 sql={customer_tbl_id:helper.user.tbl_id};
                 sort={};
@@ -265,7 +270,7 @@ router.get('/get_cart_view',function(req, res) {
             res.end();
         });
 });
-//9_remove_cart 9_cart remove
+//9_remove_cart 9_cart remove 9_cart_remove
 router.post("/remove_cart/:tbl_id",function(req,res){
     var helper = biz9.get_helper_user(req);
     helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
@@ -328,7 +333,7 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
                 helper.item.item_price=data.price;
                 helper.item.item_money_price=biz9.get_money(data.price);
                 helper.item.item_title=data.title;
-                helper.item.item_quanity=helper.item.quantity;
+                helper.item.item_quantity=helper.item.quantity;
                 helper.item.item_category=data.category;
                 helper.item.item_title_url=data.title_url;
                 helper.item.photofilename=data.photofilename;

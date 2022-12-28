@@ -117,13 +117,6 @@ router.get('/sql',function(req, res) {
             });
         },
         function(call){
-            sql = {};
-            biz9.test_mongo_connection(function(error,result){
-                biz9.o('TEST_MONGO_CONNECTION',result);
-                call();
-            });
-        },
-        function(call){
             helper.item=biz9.get_test_item(DT_BLANK,0);
             biz9.update_item(db,DT_BLANK,helper.item,function(error,result) {
                 helper.item=result;
@@ -170,4 +163,5 @@ router.get('/sql',function(req, res) {
             res.end();
         });
 });
+
 module.exports = router;
