@@ -9,6 +9,7 @@ router.get('/ping', function(req, res, next) {
 router.post("/update_photo", function(req, res) {
     var helper = biz9.get_helper(req);
     helper.item = biz9.get_new_item(DT_BLANK, 0);
+    var aws_config={aws_key:AWS_KEY,aws_secret:AWS_SECRET,region:AWS_REGION};
     helper.error=null;
     async.series([
         //get file name
@@ -75,14 +76,44 @@ router.post("/update_photo", function(req, res) {
                 call();
             }
         },
+        //save with new filename size square_thumb_size
+        function(call){
+            if(helper.error==null){
+                biz9.set_resize_square_photo_file(PHOTO_SIZE_SQUARE_THUMB.size,FILE_SAVE_PATH,helper.item.photofilename,PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
+        //save with new filename size square_mid_size
+        function(call){
+            if(helper.error==null){
+                biz9.set_resize_square_photo_file(PHOTO_SIZE_SQUARE_MID.size,FILE_SAVE_PATH,helper.item.photofilename,PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
+        //save with new filename size square_large_size
+        function(call){
+            if(helper.error==null){
+                biz9.set_resize_square_photo_file(PHOTO_SIZE_SQUARE_LARGE.size,FILE_SAVE_PATH,helper.item.photofilename,PHOTO_SIZE_SQUARE_LARGE.title_url+helper.item.photofilename,function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
         //update_s3_org
         function(call){
             if(helper.error==null){
                 if(S3_SAVE){
-                    biz9.update_bucket_file(S3_BUCKET,FILE_SAVE_PATH+helper.item.photofilename,helper.item.photofilename,"image/jpeg",
-function(error,data) {
-                        call();
-                    });
+                    biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+helper.item.photofilename,helper.item.photofilename,"image/jpeg",
+                        function(error,data) {
+                            call();
+                        });
 
                 }else{
                     call();
@@ -94,17 +125,17 @@ function(error,data) {
         //update_s3_thumb
         function(call){
             if(S3_SAVE){
-                biz9.update_bucket_file(S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
                     call();
                 });
             }else{
                 call();
             }
         },
-         //update_s3_mid
+        //update_s3_mid
         function(call){
             if(S3_SAVE){
-                biz9.update_bucket_file(S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_MID.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_MID.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
                     call();
                 });
             }else{
@@ -114,7 +145,37 @@ function(error,data) {
         //update_s3_large
         function(call){
             if(S3_SAVE){
-                biz9.update_bucket_file(S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,PHOTO_SIZE_LARGE.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
+        //update_s3_square_thumb
+        function(call){
+            if(S3_SAVE){
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
+        //update_s3_square_mid
+        function(call){
+            if(S3_SAVE){
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
+                    call();
+                });
+            }else{
+                call();
+            }
+        },
+        //update_s3_square_large
+        function(call){
+            if(S3_SAVE){
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_LARGE.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_LARGE.title_url+helper.item.photofilename,"image/jpeg",function(error,data) {
                     call();
                 });
             }else{
@@ -154,6 +215,7 @@ function(error,data) {
 router.post("/update_mp3", function(req, res) {
     var helper = biz9.get_helper(req);
     helper.item = biz9.get_new_item(DT_BLANK, 0);
+    var aws_config={aws_key:AWS_KEY,aws_secret:AWS_SECRET,region:AWS_REGION};
     helper.error=null;
     async.series([
         //get file name
@@ -166,7 +228,7 @@ router.post("/update_mp3", function(req, res) {
             const bb = busboy({ headers: req.headers });
             const run = async function(a, b) {
                 bb.on('file', (name, file, info) => {
-                const saveTo = path.join(FILE_SAVE_PATH,helper.item.mp3filename);
+                    const saveTo = path.join(FILE_SAVE_PATH,helper.item.mp3filename);
                     file.pipe(fs.createWriteStream(saveTo));
                 });
                 req.pipe(bb);
@@ -194,24 +256,23 @@ router.post("/update_mp3", function(req, res) {
         function(call){
             helper.item.mp3duration='0:00';
             if(helper.error==null){
-                mp3Duration(FILE_SAVE_PATH+helper.item.mp3filename,function(err,duration){
-                    if (err)
-                        error=err;
-                        helper.item.mp3duration=biz9.get_mp3_duration(duration);
-                        call();
-                    });
-            }else{
-                call();
+                mp3Duration(FILE_SAVE_PATH+helper.item.mp3filename,function(error, duration) {
+                    if(error){
+                        helper.error=error;
+                    }else{
+                        helper.item.mp3duration= biz9.get_mp3_duration(duration);
+                    }
+                    call();
+                });
             }
         },
         //upload to s3
         function(call){
             if(S3_SAVE && helper.error==null){
-                biz9.update_bucket_file(S3_BUCKET,FILE_SAVE_PATH+helper.item.mp3filename,helper.item.mp3filename,"audio/mp3"
-,function(data,error){
+                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+helper.item.mp3filename,helper.item.mp3filename,"audio/mp3",function(data,error){
                     helper.item.mp3_url = FILE_URL+helper.item.mp3filename;
-                    call();
-                });
+                        call();
+                    });
             }else{
                 call();
             }

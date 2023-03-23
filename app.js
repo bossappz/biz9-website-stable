@@ -14,7 +14,7 @@ session=require("express-session");
 ENV=process.env.NODE_ENV;
 /*--- APP DEFAULT END ---*/
 /* --- APP CONFIG START  --- */
-BIZ9_SERVICE_VERSION='3.4.4';
+BIZ9_WEBSITE_VERSION='3.7.5'
 APP_ID='19';
 APP_TITLE_ID='website-19';
 APP_TITLE='BiZ9-Website';
@@ -80,7 +80,7 @@ app_config={
     app_title:APP_TITLE,
     app_id:APP_ID,
     file_url:FILE_URL,
-    biz_map:false
+    biz_map:true
 };
 aws_config={
     aws_key:AWS_KEY,
