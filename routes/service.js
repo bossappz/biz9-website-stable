@@ -16,8 +16,9 @@ router.get('/all',function(req, res) {
 router.get('/all/:page_current',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='service_list';
-    helper.page_title = APP_TITLE +': Service';
+    helper.page_title = APP_TITLE +': ServiceZ';
     helper.item = biz9.get_new_item(DT_BLANK,0);
+    helper.render_menu='li_product';
     async.series([
         function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
@@ -40,42 +41,32 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            sql={};
-            sort={date_create:1};
+            sql={visible:'true'};
+            sort={title:1};
             page_current=1;
-            page_size=12;
-            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
-                helper.service_list=data_list;
+            page_size=16;
+            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
+                helper.service_list=result_list;
                 helper.total_item_count=total_count;
                 helper.page_page_count=page_page_count;
                 call();
             });
         },
-        function(call){
-            sql={};
-            sort={date_create:1};
-            page_current=helper.page_current;
-            page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list) {
-                helper.blog_post_list=data_list;
-                call();
-            });
-        },
-
     ],
-        function(err, result){
+        function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
         });
 });
-//9_service_detail
+//9_service_detail //9_detail
 router.get('/:title_url',function(req, res) {
     var helper = biz9.get_helper(req);
     helper.render='service_detail';
-    helper.page_title = APP_TITLE +': Service ';
-    helper.item = biz9.get_new_item(DT_BLANK,0);
+    helper.page_title = APP_TITLE +': ServiceZ ';
+    helper.service = biz9.get_new_item(DT_BLANK,0);
+    helper.render_menu='li_product';
     async.series([
-       function(call){
+        function(call){
             biz9.get_connect_db(helper.app_title_id,function(error,_db){
                 db=_db;
                 call();
@@ -91,32 +82,29 @@ router.get('/:title_url',function(req, res) {
         function(call){
             title_url='service';
             biz9.get_page(db,title_url,{},function(error,page){
-                helper.service=page;
+                helper.service_page=page;
+                call();
+            });
+        },
+       function(call){
+            biz9.get_service(db,helper.title_url,function(error,data){
+                helper.service=data;
+                helper.page_title = APP_TITLE +': Service '+ helper.service.title;
                 call();
             });
         },
         function(call){
-            sql={title_url:helper.title_url};
-            biz9.get_service(db,title_url,function(error,data) {
-                helper.item=data;
-                helper.page_title = APP_TITLE +': Blog Post '+ helper.item.title;
+            if(helper.service.title_url){
+                biz9.update_item_view_count(db,DT_SERVICE,helper.service.tbl_id,helper.customer_id,function(error,data) {
+                    call();
+                });
+            }else{
                 call();
-            });
+            }
         },
-        function(call){
-            sql={};
-            sort={date_create:1};
-            page_current=helper.page_current;
-            page_size=12;
-            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
-                helper.service_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
-                call();
-            });
-        },
-    ],
-        function(err, result){
+
+            ],
+        function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
         });
