@@ -43,29 +43,29 @@ router.post("/update_photo", function(req, res) {
             let imageFileName = {}
             let imagesToUpload = []
             let imageToAdd = {}
-            //This triggers for each file type that comes in the form data
+        //This triggers for each file type that comes in the form data
             busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
                 if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
                     return res
                         .status(400)
                         .json({ error: "Wrong file type submitted!" });
                 }
-                // Getting extension of any image
+        // Getting extension of any image
                 const imageExtension = filename.split(".")[
                     filename.split(".").length - 1
                 ];
-                // Setting filename
+// Setting filename
                 imageFileName = `${Math.round(
                     Math.random() * 1000000000
                 )}.${imageExtension}`;
-                // Creating path
+        // Creating path
                 const filepath = path.join(os.tmpdir(), imageFileName);
                 imageToAdd = {
                     imageFileName
                     filepath,
                     mimetype };
                 file.pipe(fs.createWriteStream(filepath));
-                //Add the image to the array
+    //Add the image to the array
                 imagesToUpload.push(imageToAdd);
             });
             busboy.on("finish", () => {
@@ -116,13 +116,13 @@ router.post("/update_photo", function(req, res) {
         function(call){
             switch (file_ext) {
                 case 'png':
-                    file_mime_type='image/apng';
+                    file_mime_type='image/png';
                     break;
                 case 'jpeg':
-                    file_mime_type='image/jpgeg';
+                    file_mime_type='image/jpeg';
                     break;
                 case 'jpg':
-                    file_mime_type='image/jpgeg';
+                    file_mime_type='image/jpeg';
                     break;
                 case 'avif':
                     file_mime_type='image/avif';
@@ -172,6 +172,29 @@ router.post("/update_photo", function(req, res) {
                     helper.error=error;
                     call();
                 });
+            }else{
+                call();
+            }
+        },
+        //save with new filename square_sizez -- bug on square_mid_size
+        function(call){
+            if(!fs.existsSync(FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename)){
+                if(helper.error==null){
+                    var sizes = [{
+                        path:FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,
+                        xy: PHOTO_SIZE_SQUARE_THUMB.size
+                    },{
+                        path:FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,
+                        xy: PHOTO_SIZE_SQUARE_MID.size
+                    }
+                    ];
+                    biz9.set_resize_square_photo_file(FILE_SAVE_PATH+helper.item.photofilename,sizes,function(error,data) {
+                        helper.error=error;
+                        call();
+                    });
+                }else{
+                    call();
+                }
             }else{
                 call();
             }

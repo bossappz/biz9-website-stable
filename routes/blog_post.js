@@ -166,4 +166,29 @@ router.get('/:title_url',function(req, res) {
             res.end();
         });
 });
+router.get('/list/:page_current',function(req, res) {
+    var helper = biz9.get_helper(req);
+    async.series([
+        function(call){
+            biz9.get_connect_db(helper.app_title_id,function(error,_db){
+                db=_db;
+                call();
+            });
+        },
+        function(call){
+            sql = {};
+            sort={date_create:-1};
+            page_current=helper.page_current;
+            page_size=9;
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                helper.blog_post_list=data_list;
+                call();
+            });
+        },
+    ],
+        function(err, results){
+            res.send({helper:helper});
+            res.end();
+        });
+});
 module.exports = router;

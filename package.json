@@ -1,12 +1,12 @@
 {
-  "name": "unstable",
+  "name": "BiZ9-Website",
   "version": "0.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "biz9-core": "^5.3.5",
+    "biz9-core": "^5.3.8",
     "busboy": "^1.6.0",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",

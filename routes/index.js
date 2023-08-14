@@ -17,13 +17,6 @@ router.get('/',function(req, res) {
             });
         },
         function(call){
-            title_url='primary';
-            biz9.get_page(db,title_url,{},function(error,page){
-                helper.primary=page;
-                call();
-            });
-        },
-        function(call){
             sql={};
             sort={date_create:1};
             page_current=1;

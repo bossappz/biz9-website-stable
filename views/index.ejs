@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include ('_head') %>
+    </head>
+    <body>
+        <!--Navbar Modal -->
+        <div class="modal fade" id="biz_modal_blog_post_edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Blog Post</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Image</label>
+                            <div style='float:left;width:100%;margin-bottom:10px;'>
+                                <form action='/cloud/file/update_photo' id='biz_form_photo_upload' method='POST' encType="multipart/form-data" >
+                                    <input type="file" class="" id="biz_file_photo_upload" name="biz_file_photo_upload" >
+                                    <input type="hidden" id="biz_txt_photofilename" name="biz_txt_photofilename" >
+                                    <button type="submit" id='biz_btn_photo_upload' class="btn btn-lg btn-primary" style='margin-top:15px;margin-right:10px;'>Upload</button>
+                                    <img height='150px'width='150px' id='biz_lbl_photo_img' style='margin-top:15px;'src='/images/no_image.png'/>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="mb-3" >
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="biz_txt_title" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label">Sub Note</label>
+                            <input type="text" class="form-control" id="biz_txt_sub_note" placeholder="">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Note</label>
+                            <textarea rows="4" class="form-control" id="biz_txt_note"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button"  id='biz_btn_close' class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id='biz_btn_add_blog_post' class="btn btn-primary" data-bs-dismiss="modal">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="biz_modal_blog_post_detail" tabindex="-1" aria-labelledby="showTaskLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div id='biz_div_blog_post_detail' class="modal-body blog__modal__body">
+                        <div class="card m-2">
+                            <div class="card-body">
+                                <h4 class="card-title" id='biz_lbl_blog_post_title'></h4>
+                                <img id='biz_lbl_blog_post_image' src='#'/>
+                                <b class='card-sub-note'><i  id='biz_lbl_blog_post_sub_note'></i></b>
+                                <span class="badge bg-primary card-date"  id='biz_lbl_blog_post_date'></span>
+                                <p class="card-text" id='biz_lbl_blog_post_note'></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- navbar -->
+         <%- include ('_header') %>
+       <div class="container">
+            <section>
+                <div class="row blog__container mt-5 mb-3 ">
+                </div>
+            </section>
+        </div>
+        <div class="text-center">
+            <%- include ('_footer') %>
+        </div>
+        <%- include ('_footer_file') %>
+    </body>
+</html>
