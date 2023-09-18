@@ -21,7 +21,7 @@ router.get('/',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=9;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_count) {
                 helper.blog_post_list=result_list;
                 call();
             });
@@ -131,10 +131,10 @@ router.get('/sql',function(req, res) {
             sort={date_create:-1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_sql_paging(db,DT_PRODUCT,sql,sort,page_current,page_size,function(error,result_list,total_item_count,page_page_count){
+            biz9.get_sql_paging(db,DT_PRODUCT,sql,sort,page_current,page_size,function(error,result_list,total_count,page_count){
                 helper.item_list=result_list;
-                helper.total_item_count=total_item_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },

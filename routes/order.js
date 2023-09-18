@@ -882,9 +882,9 @@ router.get('/order_list/:page_current',function(req, res) {
             sort={date_create:-1};
             page_current=helper.page_current;
             page_size=PAGE_SIZE_ITEM_LIST;
-            biz9.get_orderz(db,sql,sort,page_current,page_size,function(error,data_list,item_count,page_count) {
+            biz9.get_orderz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.order_list = data_list;
-                helper.item_count=item_count;
+                helper.total_count=total_count;
                 helper.page_count=page_count;
                 call();
             });

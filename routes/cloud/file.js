@@ -15,6 +15,20 @@ router.post("/update_photo", function(req, res) {
     helper.error=null;
     async.series([
         function(call){
+            try {
+                if (fs.existsSync(FILE_SAVE_PATH)) {
+                    call();
+                } else {
+                    helper.error="Image save directory does not exist.";
+                    call();
+                }
+            } catch(e) {
+                helper.error="An error occurred. "+ error;
+                call();
+            }
+        },
+        function(call){
+            if(helper.error==null){
             let imageFileName = {}
             const bb = busboy({ headers: req.headers });
             const run = async function(a, b) {
@@ -36,6 +50,9 @@ router.post("/update_photo", function(req, res) {
                 req.pipe(bb);
             }
             run();
+           }else{
+                call();
+            }
         },
         /*upload_mulitple_photos work
          * https://stackoverflow.com/questions/58461076/upload-multiple-images-on-firebase-using-nodejs-and-busboy
@@ -116,13 +133,13 @@ router.post("/update_photo", function(req, res) {
         function(call){
             switch (file_ext) {
                 case 'png':
-                    file_mime_type='image/png';
+                    file_mime_type='image/apng';
                     break;
                 case 'jpeg':
-                    file_mime_type='image/jpeg';
+                    file_mime_type='image/jpgeg';
                     break;
                 case 'jpg':
-                    file_mime_type='image/jpeg';
+                    file_mime_type='image/jpgeg';
                     break;
                 case 'avif':
                     file_mime_type='image/avif';
@@ -176,34 +193,11 @@ router.post("/update_photo", function(req, res) {
                 call();
             }
         },
-        //save with new filename square_sizez -- bug on square_mid_size
-        function(call){
-            if(!fs.existsSync(FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename)){
-                if(helper.error==null){
-                    var sizes = [{
-                        path:FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,
-                        xy: PHOTO_SIZE_SQUARE_THUMB.size
-                    },{
-                        path:FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,
-                        xy: PHOTO_SIZE_SQUARE_MID.size
-                    }
-                    ];
-                    biz9.set_resize_square_photo_file(FILE_SAVE_PATH+helper.item.photofilename,sizes,function(error,data) {
-                        helper.error=error;
-                        call();
-                    });
-                }else{
-                    call();
-                }
-            }else{
-                call();
-            }
-        },
         //update_s3_org
         function(call){
             if(helper.error==null){
-                if(S3_SAVE){
-                    biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+helper.item.photofilename,helper.item.photofilename,file_mime_type,
+                if(AWS_S3_SAVE){
+                    biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+helper.item.photofilename,helper.item.photofilename,file_mime_type,
                         function(error,data) {
                             helper.error=error;
                             call();
@@ -218,8 +212,8 @@ router.post("/update_photo", function(req, res) {
         },
         //update_s3_thumb
         function(call){
-            if(S3_SAVE){
-                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
+            if(AWS_S3_SAVE){
+                biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_THUMB.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
                     helper.error=error;
                     call();
                 });
@@ -229,8 +223,8 @@ router.post("/update_photo", function(req, res) {
         },
         //update_s3_mid
         function(call){
-            if(S3_SAVE){
-                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_MID.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
+            if(AWS_S3_SAVE){
+                biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_MID.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
                     helper.error=error;
                     call();
                 });
@@ -240,8 +234,8 @@ router.post("/update_photo", function(req, res) {
         },
         //update_s3_square_thumb
         function(call){
-            if(S3_SAVE){
-                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
+            if(AWS_S3_SAVE){
+                biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_THUMB.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
                     helper.error=error;
                     call();
                 });
@@ -251,8 +245,8 @@ router.post("/update_photo", function(req, res) {
         },
         //update_s3_square_mid
         function(call){
-            if(S3_SAVE){
-                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
+            if(AWS_S3_SAVE){
+                biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,PHOTO_SIZE_SQUARE_MID.title_url+helper.item.photofilename,file_mime_type,function(error,data) {
                     helper.error=error;
                     call();
                 });
@@ -264,7 +258,7 @@ router.post("/update_photo", function(req, res) {
         /*
         function(call){
             if(helper.error==null){
-                if(S3_SAVE){
+                if(AWS_S3_SAVE){
                     try {
                         fs.unlinkSync(FILE_SAVE_PATH+PHOTO_SIZE_LARGE.title_url+helper.item.photofilename)
                         call();
@@ -327,8 +321,8 @@ router.post("/update_mp3", function(req, res) {
         },
         //upload to s3
         function(call){
-            if(S3_SAVE && helper.error==null){
-                biz9.update_bucket_file(aws_config,S3_BUCKET,FILE_SAVE_PATH+helper.item.mp3filename,helper.item.mp3filename,"audio/mp3",function(data,error){
+            if(AWS_S3_SAVE && helper.error==null){
+                biz9.update_bucket_file(aws_config,AWS_S3_BUCKET,FILE_SAVE_PATH+helper.item.mp3filename,helper.item.mp3filename,"audio/mp3",function(data,error){
                     helper.item.mp3_url = FILE_URL+helper.item.mp3filename;
                     call();
                 });

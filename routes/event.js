@@ -43,14 +43,14 @@ router.get('/all/:page_current',function(req, res) {
         },
         function(call){
             sort={title:1};
-            biz9.get_categoryz(db,DT_PRODUCT,sort,1,12,function(error,data_list,total_count,page_page_count) {
+            biz9.get_categoryz(db,DT_PRODUCT,sort,1,12,function(error,data_list,total_count,page_count) {
                 helper.category_product_list=data_list;
                 call();
             });
         },
         function(call){
             sort={title:1};
-            biz9.get_categoryz(db,DT_EVENT,sort,1,12,function(error,data_list,total_count,page_page_count) {
+            biz9.get_categoryz(db,DT_EVENT,sort,1,12,function(error,data_list,total_count,page_count) {
                 helper.category_event_list=data_list;
                 call();
             });
@@ -61,10 +61,10 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=0;
             page_size=9;
-            biz9.get_eventz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_eventz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.event_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },
@@ -105,14 +105,14 @@ router.get('/category/:category/:page_current',function(req, res) {
         },
         function(call){
             sort={title:1};
-            biz9.get_categoryz(db,DT_PRODUCT,sort,1,12,function(error,data_list,total_count,page_page_count) {
+            biz9.get_categoryz(db,DT_PRODUCT,sort,1,12,function(error,data_list,total_count,page_count) {
                 helper.category_product_list=data_list;
                 call();
             });
         },
         function(call){
             sort={title:1};
-            biz9.get_categoryz(db,DT_EVENT,sort,1,12,function(error,data_list,total_count,page_page_count) {
+            biz9.get_categoryz(db,DT_EVENT,sort,1,12,function(error,data_list,total_count,page_count) {
                 helper.category_event_list=data_list;
                 call();
             });
@@ -122,10 +122,10 @@ router.get('/category/:category/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_eventz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_eventz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.event_list=data_list;
                 helper.total_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.page_count=page_count;
                 call();
             });
         },

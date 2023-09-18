@@ -45,10 +45,10 @@ router.get('/all/:page_current',function(req, res) {
             sort={title:1};
             page_current=1;
             page_size=16;
-            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_page_count) {
+            biz9.get_servicez(db,sql,sort,page_current,page_size,function(error,result_list,total_count,page_count) {
                 helper.service_list=result_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },

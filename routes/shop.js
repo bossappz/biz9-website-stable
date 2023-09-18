@@ -46,10 +46,10 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=0;
             page_size=9;
-            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.product_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },
@@ -97,10 +97,10 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=1;
             page_size=9;
-            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.product_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },
@@ -145,7 +145,7 @@ router.get('/checkout/success/',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                     helper.product_cart_list=data_list;
                     call();
                 });
@@ -198,7 +198,7 @@ router.get('/cart',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                     helper.product_cart_list=data_list;
                     call();
                 });
@@ -247,7 +247,7 @@ router.get('/get_cart_view',function(req, res) {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                     helper.product_cart_list=data_list;
                     call();
                 });
@@ -427,7 +427,7 @@ router.post("/create-checkout-session",async (req, res) => {
                 sort={};
                 page_current=1;
                 page_size=10;
-                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+                biz9.get_cart_productz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                     helper.product_cart_list=data_list;
                     call();
                 });

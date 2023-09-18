@@ -42,8 +42,6 @@ router.post("/update/:data_type/:tbl_id", function(req, res) {
         },
     ],
         function(err, result){
-            console.log('aaaaaaaaaaa');
-            console.log(helper);
             res.send({helper:helper});
             res.end();
         });

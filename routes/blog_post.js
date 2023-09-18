@@ -42,10 +42,10 @@ router.get('/all/:page_current',function(req, res) {
             sort={date_create:-1};
             page_current=helper.page_current;
             page_size=6;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.blog_post_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 helper.page_size=page_size;
                 call();
             });
@@ -103,10 +103,10 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=12;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.blog_post_list=data_list;
-                helper.total_item_count=total_count;
-                helper.page_page_count=page_page_count;
+                helper.total_count=total_count;
+                helper.page_count=page_count;
                 call();
             });
         },
@@ -155,7 +155,7 @@ router.get('/:title_url',function(req, res) {
             sort={date_create:1};
             page_current=helper.page_current;
             page_size=5;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.related_list=data_list;
                 call();
             });
@@ -180,7 +180,7 @@ router.get('/list/:page_current',function(req, res) {
             sort={date_create:-1};
             page_current=helper.page_current;
             page_size=9;
-            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_page_count) {
+            biz9.get_blog_postz(db,sql,sort,page_current,page_size,function(error,data_list,total_count,page_count) {
                 helper.blog_post_list=data_list;
                 call();
             });
