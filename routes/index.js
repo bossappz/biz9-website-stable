@@ -96,6 +96,31 @@ router.get('/contact',function(req, res) {
             res.end();
         });
 });
+router.get('/brevo_mail_form',function(req, res) {
+    var helper = biz9.get_helper(req);
+    helper.render='brevo_mail_form';
+    helper.page_title = APP_TITLE +': Brevo Mail Form';
+    helper.item = biz9.get_new_item(DT_BLANK,0);
+    async.series([
+        function(call){
+            biz9.get_connect_db(helper.app_title_id,function(error,_db){
+                db=_db;
+                call();
+            });
+        },
+        function(call){
+            title_url='primary';
+            biz9.get_page(db,title_url,{},function(error,page){
+                helper.primary=page;
+                call();
+            });
+        },
+   ],
+        function(err, results){
+            res.render(helper.render,{helper:helper});
+            res.end();
+        });
+});
 ///9_sql
 router.get('/sql',function(req, res) {
     var helper = biz9.get_helper(req, biz9.get_helper(req));
@@ -156,5 +181,4 @@ router.get('/sql',function(req, res) {
             res.end();
         });
 });
-
 module.exports = router;

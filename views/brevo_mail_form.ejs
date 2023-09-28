@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <%- include ('_head') %>
+    </head>
+    <body>
+        <%- include ('_header') %>
+        <div class="container">
+            <section>
+                <article>
+                    <form id="Form">
+                        <h1 id="FormHeading">Brevo Mail Form</h1>
+                        <div class="Name">
+                            <li><label>First Name:</label>
+                                <input id='biz_txt_first_name'  id='biz_txt_first_name' type="text" placeholder="John">
+                            </li>
+                            <li><label>Last Name:</label>
+                                <input id='biz_txt_last_name'  id='biz_txt_last_name' type="text" placeholder="Cool">
+                            </li>
+                        </div>
+                        <li><label>Email:</label>
+                                <input id='biz_txt_email'  id='biz_txt_first_name' type="email" placeholder="myemail@gmail.com">
+                            </li>
+                        <li>
+                            <label>Message:</label>
+                            <textarea id='biz_txt_message' type="note"> </textarea>
+                        </li>
+
+                        <button id='biz_btn_submit' type="button">Send</button>
+                    </form>
+                </article>
+            </section>
+        </div>
+        <div class="text-center">
+            <%- include ('_footer') %>
+        </div>
+        <%- include ('_footer_file') %>
+        <style>
+        </style>
+    </body>
+</html>

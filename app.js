@@ -17,34 +17,8 @@ ENV=process.env.NODE_ENV;
 /* --- APP CONFIG START  --- */
 BIZ9_WEBSITE_VERSION='3.9.1'
 APP_VERSION='1.0.0';
-APP_ID=biz9_app_config.APP_ID;
-APP_TITLE_ID=biz9_app_config.APP_TITLE_ID;
-APP_TITLE=biz9_app_config.APP_TITLE;
 APP_PORT=biz9_app_config.APP_PORT;
 /* --- APP CONFIG END  --- */
-/* --- ENV CONFIG START --- */
-/* --- MONGO START --- */
-MONGO_IP=biz9_app_config.MONGO_IP;
-MONGO_PORT=biz9_app_config.MONGO_PORT;
-MONGO_URL=biz9_app_config.MONGO_URL;
-/* --- MONGO END --- */
-/* --- ENV AWS START --- */
-AWS_S3_SAVE=biz9_app_config.AWS_S3_SAVE;
-AWS_S3_BUCKET=biz9_app_config.AWS_S3_BUCKET;
-AWS_KEY=biz9_app_config.AWS_KEY;
-AWS_SECRET=biz9_app_config.AWS_SECRET;
-AWS_REGION=biz9_app_config.AWS_REGION;
-/* --- ENV AWS END --- */
-/* --- ENV EMAILZ START --- */
-EMAIL_TO=biz9_app_config.EMAIL_TO;
-EMAIL_FROM=biz9_app_config.EMAIL_FROM;
-/* --- ENV EMAILZ START --- */
-/* --- ENV FILE START --- */
-//FILE_SAVE_PATH="/uploads/";//local
-FILE_SAVE_PATH=biz9_app_config.FILE_SAVE_PATH;
-FILE_URL=biz9_app_config.FILE_URL;
-/* --- ENV FILE END --- */
-/* --- ENV CONFIG END -- */
 /* --- DATA_TYPE-START --- */
 DT_BLANK="blank_biz";
 DT_PHOTO="photo_biz";
@@ -63,13 +37,18 @@ DT_STAT="stat_biz";
 /* --- DATA_TYPE-END --- */
 /* --- BiZ9_CORE_CONFIG-START --- */
 data_config={
-    mongo_url:biz9_app_config.MONGO_URL,
+    mongo_server_user:biz9_app_config.MONGO_SERVER_USER,
+    mongo_username_password:biz9_app_config.MONGO_USERNAME_PASSWORD,
+    mongo_ip:biz9_app_config.MONGO_IP,
+    mongo_port:biz9_app_config.MONGO_PORT,
+    mongo_config_file:biz9_app_config.MONGO_CONFIG_FILE,
+    ssh_key_file:biz9_app_config.SSH_KEY_FILE,
     redis_url:biz9_app_config.REDIS_URL,
     redis_port:biz9_app_config.REDIS_PORT,
 };
 app_config={
     app_title_id:biz9_app_config.APP_TITLE_ID,
-    app_version:biz9_app_config.APP_VERSION,
+    app_version:APP_VERSION,
     app_title:biz9_app_config.APP_TITLE,
     app_id:biz9_app_config.APP_ID,
     file_url:biz9_app_config.FILE_URL,

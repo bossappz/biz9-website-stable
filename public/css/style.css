@@ -21,12 +21,101 @@ body {
     padding-bottom:20px;
     float:left;
 }
-
 .card-date{
 margin-bottom:10px;
 background-color:green;
 }
+#FormContainer {
+    background-color: #ffffffa1;
+    backdrop-filter: blur(10px);
+    border: 2px solid #ffffff6d;
+    width: 760px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 11px 1.5px #0000002b;
+    font-family: Poppins;
+    padding: 10px;
+    height: 550px;
 
-
-
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+h1 {
+    padding: 20px;
+    color: var(--main-color);
+    font-size: 2.1rem;
+    font-weight: 800;
+    grid-column: 1/span 2;
+}
+.ImgContainer {
+    overflow: hidden;
+    border-radius: 10px;
+    background:url(https://wallpapercg.com/media/ts_sq/7898.webp);
+    background-size:100% 100%;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.Name,
+.password {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+}
+form li {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 5px;
+    text-align: left;
+}
+form label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    width: 100%;
+    padding: 5px 15px;
+    color: var(--main-color);
+}
+form input,
+form select {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffff6d;
+    width: 100%;
+    outline: none;
+    color: var(--main-color);
+    margin-bottom: 10px;
+}
+form input:focus,
+form select:focus,
+form input:hover,
+form select:hover {
+    border: 1px solid var(--main-color);
+}
+form textarea{
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    background-color: #ffffff6d;
+    width: 100%;
+    outline: none;
+    color: var(--main-color);
+    margin-bottom: 10px;
+}
+form textarea:focus,
+form textarea:hover{
+    border: 1px solid var(--main-color);
+}
+form button {
+    width: fit-content;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    color: white;
+    background-color: orange;
+    border: none;
+    cursor: pointer;
+    margin: auto;
+}
 
