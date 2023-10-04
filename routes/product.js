@@ -60,6 +60,11 @@ router.get('/all/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -121,6 +126,11 @@ router.get('/category/:category/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -174,6 +184,11 @@ router.get('/:title_url',function(req, res) {
                 call();
             }
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});

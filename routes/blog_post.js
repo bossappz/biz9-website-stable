@@ -57,6 +57,11 @@ router.get('/all/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.render(helper.render,{helper:helper});
@@ -110,6 +115,11 @@ router.get('/category/:category_title/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.render(helper.render,{helper:helper});
@@ -160,6 +170,11 @@ router.get('/:title_url',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.render(helper.render,{helper:helper});
@@ -185,6 +200,11 @@ router.get('/list/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.send({helper:helper});

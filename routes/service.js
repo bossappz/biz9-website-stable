@@ -52,6 +52,11 @@ router.get('/all/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.render(helper.render,{helper:helper});
@@ -86,7 +91,7 @@ router.get('/:title_url',function(req, res) {
                 call();
             });
         },
-       function(call){
+        function(call){
             biz9.get_service(db,helper.title_url,function(error,data){
                 helper.service=data;
                 helper.page_title = APP_TITLE +': Service '+ helper.service.title;
@@ -102,8 +107,12 @@ router.get('/:title_url',function(req, res) {
                 call();
             }
         },
-
-            ],
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
+    ],
         function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();

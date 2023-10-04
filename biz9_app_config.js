@@ -32,7 +32,7 @@ const MONGO_USERNAME_PASSWORD=''; // local = ''; remote = 'ban:1234567@'
 const MONGO_PORT="27019";
 const MONGO_SERVER_USER='admin';
 const MONGO_CONFIG_FILE='/etc/mongod.conf';
-const SSH_KEY_FILE='/home/admin/www/other/aws/ec2_key/217.pem';
+const SSH_KEY_FILE='';
 /* --- MONGO END --- */
 
 /* --- REDIS START --- */
@@ -49,7 +49,7 @@ const AWS_REGION='us-east-2';
 /* --- ENV AWS END --- */
 
 /* --- BREVO-START --- */
-const BREVO_KEY='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';
+const BREVO_KEY='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';
 const BREVO_FORM_SEND_SUBJECT ='Brevo Mail Message Test';
 const BREVO_ORDER_SEND_TEMPLATE_ID='7';
 const BREVO_FORM_SEND_TEMPLATE_ID='10';

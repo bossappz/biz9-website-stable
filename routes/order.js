@@ -114,6 +114,11 @@ router.post("/cart_add/:item_data_type/:item_tbl_id/:customer_id/:quantity", fun
                 helper.cart=data;
                 call();
             });
+        },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
         }
     ],
         function(err, result){
@@ -148,6 +153,11 @@ router.post("/cart_update/:customer_id/:cart_item_tbl_id/:quantity", function(re
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -180,6 +190,11 @@ router.post("/cart_remove/:customer_id/:cart_item_tbl_id", function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -224,6 +239,11 @@ router.get('/cart_detail/:customer_id',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -294,6 +314,11 @@ router.post('/checkout/cashapp/:customer_id',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -363,6 +388,11 @@ router.post('/checkout/zelle/:customer_id',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -431,6 +461,11 @@ router.post('/checkout/payondelivery/:customer_id',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -551,6 +586,11 @@ router.post('/checkout/stripecard/:customer_id',function(req, res) {
                 call();
             }
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -618,6 +658,11 @@ router.post('/checkout/striperedirecturl',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -662,8 +707,10 @@ router.post('/checkout/striperedirecturl/success/:order_id',function(req, res) {
             });
         },
         function(call){
-            call();
-        },
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -706,6 +753,11 @@ router.get('/checkout/success/:order_id',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -889,6 +941,11 @@ router.get('/order_list/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.send({helper:helper});
@@ -954,5 +1011,4 @@ get_order_send_mail_notification=function(customer,shipping,billing,cart,order,m
             callback(send_in_blue_obj);
         });
 }
-
 module.exports = router;

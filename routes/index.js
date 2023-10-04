@@ -25,8 +25,13 @@ router.get('/',function(req, res) {
                 helper.blog_post_list=result_list;
                 call();
             });
-     },
-   ],
+        },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
+    ],
         function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
@@ -58,7 +63,12 @@ router.get('/about',function(req, res) {
                 call();
             });
         },
-   ],
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
+    ],
         function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
@@ -90,7 +100,12 @@ router.get('/contact',function(req, res) {
                 call();
             });
         },
- ],
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
+    ],
         function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
@@ -115,7 +130,12 @@ router.get('/brevo_mail_form',function(req, res) {
                 call();
             });
         },
-   ],
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
+    ],
         function(err, results){
             res.render(helper.render,{helper:helper});
             res.end();
@@ -175,6 +195,11 @@ router.get('/sql',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, results){
             res.render(helper.render,{helper:helper});

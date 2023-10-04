@@ -49,7 +49,6 @@ router.get('/all/:page_current',function(req, res) {
             page_current=1
             page_size=20;
             biz9.get_categoryz(db,DT_PROJECT,sort,page_current,page_size,function(error,data_list,total_item_count,page_page_count){
-                biz9.o('aaaaa',data_list);
                 helper.category_list=data_list;
                 call();
             });
@@ -66,6 +65,11 @@ router.get('/all/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -118,6 +122,11 @@ router.get('/category/:category_title/:page_current',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -168,6 +177,11 @@ router.get('/:title_url',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -229,6 +243,11 @@ router.get('/:title_url',function(req, res) {
                 call();
             });
         },
+        function(call){
+            biz9.close_connect_db(function(error){
+                call();
+            });
+        }
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
