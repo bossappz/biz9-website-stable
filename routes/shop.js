@@ -22,8 +22,9 @@ router.get('/all/:page_current',function(req, res) {
     helper.render_list='/shop/all';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -54,10 +55,10 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -78,8 +79,9 @@ router.get('/category/:category_title/:page_current',function(req, res) {
     helper.render_list='/category/category_title';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -110,10 +112,10 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -129,8 +131,9 @@ router.get('/checkout/success/',function(req, res) {
     helper.product_order_list=[];
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -176,10 +179,10 @@ router.get('/checkout/success/',function(req, res) {
             call();
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -195,8 +198,9 @@ router.get('/cart',function(req, res) {
     helper.render_list='/shop/all';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -233,10 +237,10 @@ router.get('/cart',function(req, res) {
             call();
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -249,8 +253,9 @@ router.get('/get_cart_view',function(req, res) {
     helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -286,10 +291,10 @@ router.get('/get_cart_view',function(req, res) {
             call();
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -302,11 +307,13 @@ router.post("/remove_cart/:tbl_id",function(req,res){
     helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
+
         function(call){
             biz9.delete_item(db,DT_PRODUCT_CART,helper.tbl_id,function(error,data) {
                 helper.item.data;
@@ -314,10 +321,10 @@ router.post("/remove_cart/:tbl_id",function(req,res){
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -330,11 +337,13 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
     helper.item = biz9.set_item_data(DT_PRODUCT_CART,0,req.body);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
+
         function(call){
             if(helper.user.tbl_id==0){
                 helper.user.is_guest='true';
@@ -378,10 +387,10 @@ router.post("/update_cart/:data_type/:tbl_id",function(req,res){
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -395,11 +404,13 @@ router.post("/update_cart_list",function(req,res){
     helper.product_list=[];
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
+
         function(call){
             if(helper.user.tbl_id==0){
                 helper.user.is_guest='true';
@@ -432,10 +443,10 @@ router.post("/update_cart_list",function(req,res){
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -449,11 +460,13 @@ router.post("/create-checkout-session",async (req, res) => {
     helper.cart_price_total=0;
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
+
         function(call){
             title_url='primary';
             biz9.get_page(db,title_url,{},function(error,page){
@@ -534,10 +547,10 @@ router.post("/create-checkout-session",async (req, res) => {
             run();
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             if(helper.validation_message){
@@ -556,8 +569,9 @@ router.get('/:title_url',function(req, res) {
     helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -593,11 +607,11 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
-    ],
+        },
+       ],
         function(err, result){
             res.render(helper.render,{helper:helper});
             res.end();

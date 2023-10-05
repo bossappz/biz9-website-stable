@@ -24,8 +24,9 @@ router.get('/all/:page_current',function(req, res) {
     helper.render_menu='li_app';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -66,10 +67,10 @@ router.get('/all/:page_current',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -83,8 +84,9 @@ router.get('/category/:category_title/:page_current',function(req, res) {
     helper.item = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -123,10 +125,10 @@ router.get('/category/:category_title/:page_current',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -142,8 +144,9 @@ router.get('/:title_url',function(req, res) {
     helper.render_menu='li_app';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -178,10 +181,10 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});
@@ -197,8 +200,9 @@ router.get('/:title_url',function(req, res) {
     helper.render_menu='li_app';
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -244,10 +248,10 @@ router.get('/:title_url',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.render(helper.render,{helper:helper});

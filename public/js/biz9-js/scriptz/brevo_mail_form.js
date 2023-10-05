@@ -40,8 +40,8 @@ $(document).ready(function() {
                     customer_name:obj_form.customer_name
                 },
                 success: function(data){
-                    if(data.helper.validation_message){
-                        alert(data.helper.validation_message);
+                    if(data.helper.error){
+                        alert(data.helper.error);
                     }else{
                         alert('Thanks for contacting us! We will get in touch with you shortly.');
                     }

@@ -44,8 +44,8 @@ function upload_mp3(fileURI,call) {
     }
     function uploadMP3Success(r) {
         res=JSON.parse(r.response);
-        if(res.helper.validation_message){
-            alert(res.helper.validation_message);
+        if(res.helper.error){
+            alert(res.helper.error);
         }else{
             call(res.helper.item);
         }
@@ -86,7 +86,7 @@ function upload_photo(imageURI,call) {
     }
     function uploadSuccess(r) {
         res=JSON.parse(r.response);
-        if(res.helper.validation_message){
+        if(res.helper.error){
         }else{
             call(res.helper.item);
         }

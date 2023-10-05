@@ -15,8 +15,9 @@ router.post("/cart_add/:item_data_type/:item_tbl_id/:customer_id/:quantity", fun
     helper.select_option_item_list=[];
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -116,10 +117,10 @@ router.post("/cart_add/:item_data_type/:item_tbl_id/:customer_id/:quantity", fun
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -134,8 +135,9 @@ router.post("/cart_update/:customer_id/:cart_item_tbl_id/:quantity", function(re
     helper.item = biz9.set_item_data(DT_CART_ITEM,helper.cart_item_tbl_id,req.body);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -154,10 +156,10 @@ router.post("/cart_update/:customer_id/:cart_item_tbl_id/:quantity", function(re
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -172,8 +174,9 @@ router.post("/cart_remove/:customer_id/:cart_item_tbl_id", function(req, res) {
     helper.cart_item = biz9.get_new_item(DT_CART_ITEM,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -191,10 +194,10 @@ router.post("/cart_remove/:customer_id/:cart_item_tbl_id", function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -212,8 +215,9 @@ router.get('/cart_detail/:customer_id',function(req, res) {
     helper.cart = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -240,10 +244,10 @@ router.get('/cart_detail/:customer_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -265,8 +269,9 @@ router.post('/checkout/cashapp/:customer_id',function(req, res) {
     var send_in_blue_obj=biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -315,10 +320,10 @@ router.post('/checkout/cashapp/:customer_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -339,11 +344,13 @@ router.post('/checkout/zelle/:customer_id',function(req, res) {
     var send_in_blue_obj=biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
+
         function(call){
             sql = {title_url:'info'};
             sort={};
@@ -389,10 +396,10 @@ router.post('/checkout/zelle/:customer_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -412,8 +419,9 @@ router.post('/checkout/payondelivery/:customer_id',function(req, res) {
     var send_in_blue_obj=biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -462,10 +470,10 @@ router.post('/checkout/payondelivery/:customer_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -487,8 +495,9 @@ router.post('/checkout/stripecard/:customer_id',function(req, res) {
     var stripe_charge=null;
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -587,10 +596,10 @@ router.post('/checkout/stripecard/:customer_id',function(req, res) {
             }
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -604,8 +613,9 @@ router.post('/checkout/striperedirecturl',function(req, res) {
     helper.order = biz9.get_new_item(DT_BLANK,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -659,10 +669,10 @@ router.post('/checkout/striperedirecturl',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -675,8 +685,9 @@ router.post('/checkout/striperedirecturl/success/:order_id',function(req, res) {
     helper.order = biz9.get_new_item(DT_ORDER,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -707,10 +718,10 @@ router.post('/checkout/striperedirecturl/success/:order_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -727,8 +738,9 @@ router.get('/checkout/success/:order_id',function(req, res) {
     helper.order = biz9.get_new_item(DT_ORDER,0);
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -754,10 +766,10 @@ router.get('/checkout/success/:order_id',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
@@ -909,8 +921,9 @@ router.get('/order_list/:page_current',function(req, res) {
     helper.order_list = [];
     async.series([
         function(call){
-            biz9.get_connect_db(helper.app_title_id,function(error,_db){
-                db=_db;
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
                 call();
             });
         },
@@ -942,10 +955,10 @@ router.get('/order_list/:page_current',function(req, res) {
             });
         },
         function(call){
-            biz9.close_connect_db(function(error){
+            biz9.close_client_db(client_db,function(error){
                 call();
             });
-        }
+        },
     ],
         function(err, result){
             res.send({helper:helper});
