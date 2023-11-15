@@ -15,8 +15,11 @@ biz9_app_config=require("./biz9_app_config");
 ENV=process.env.NODE_ENV;
 /*--- APP DEFAULT END ---*/
 /* --- APP CONFIG START  --- */
-BIZ9_WEBSITE_VERSION='3.9.7'
+BIZ9_WEBSITE_VERSION='4.0.0'
 APP_VERSION='1.0.0';
+APP_ID=biz9_app_config.APP_ID;
+APP_TITLE_ID=biz9_app_config.APP_TITLE_ID;
+APP_TITLE=biz9_app_config.APP_TITLE;
 APP_PORT=biz9_app_config.APP_PORT;
 /* --- APP CONFIG END  --- */
 /* --- MONGO START --- */
@@ -24,26 +27,27 @@ MONGO_IP=biz9_app_config.MONGO_IP;
 MONGO_PORT=biz9_app_config.MONGO_PORT;
 MONGO_URL=biz9_app_config.MONGO_URL;
 /* --- MONGO END --- */
-/* --- ENV AWS START --- */
+/* --- AWS START --- */
 AWS_S3_SAVE=biz9_app_config.AWS_S3_SAVE;
 AWS_S3_BUCKET=biz9_app_config.AWS_S3_BUCKET;
 AWS_KEY=biz9_app_config.AWS_KEY;
 AWS_SECRET=biz9_app_config.AWS_SECRET;
 AWS_REGION=biz9_app_config.AWS_REGION;
-/* --- ENV AWS END --- */
-/* --- ENV EMAILZ START --- */
-EMAIL_TO=biz9_app_config.EMAIL_TO;
-EMAIL_FROM=biz9_app_config.EMAIL_FROM;
-/* --- ENV EMAILZ START --- */
-/* --- ENV FILE START --- */
+/* --- AWS END --- */
+/* --- EMAILZ START --- */
+EMAIL_SENDER=biz9_app_config.EMAIL_SENDER;
+EMAIL_REPLY=biz9_app_config.EMAIL_REPLY;
+/* --- EMAILZ START --- */
+/* --- FILE START --- */
 FILE_SAVE_PATH=biz9_app_config.FILE_SAVE_PATH;
 FILE_URL=biz9_app_config.FILE_URL;
-/* --- ENV FILE END --- */
-//-SEND_IN_BLUE-START
-SEND_IN_BLUE_KEY=biz9_app_config.SEND_IN_BLUE_KEY;
-SEND_IN_BLUE_ORDER_SEND_TEMPLATE_ID=biz9_app_config.SEND_IN_BLUE_ORDER_SEND_TEMPLATE_ID;
-SEND_IN_BLUE_FORM_SEND_TEMPLATE_ID=biz9_app_config.SEND_IN_BLUE_FORM_SEND_TEMPLATE_ID;
-//-SEND_IN_BLUE-END
+/* --- FILE END --- */
+//-BREVO-START
+BREVO_KEY=biz9_app_config.BREVO_KEY;
+BREVO_FORM_SEND_SUBJECT=biz9_app_config.BREVO_FORM_SEND_SUBJECT;
+BREVO_ORDER_SEND_TEMPLATE_ID=biz9_app_config.BREVO_ORDER_SEND_TEMPLATE_ID;
+BREVO_FORM_SEND_TEMPLATE_ID=biz9_app_config.BREVO_FORM_SEND_TEMPLATE_ID;
+//-BREVO-END
 /* --- DATA_TYPE-START --- */
 DT_BLANK="blank_biz";
 DT_PHOTO="photo_biz";
@@ -79,8 +83,7 @@ app_config={
     file_url:biz9_app_config.FILE_URL,
     biz_map:biz9_app_config.BIZ_MAP
 }
-//biz9=require("biz9-core")(app_config,data_config);
-biz9=require("/home/mama/www/doqbox/biz9/biz9-core/src/unstable")(app_config,data_config);
+biz9=require("biz9-core")(app_config,data_config);
 /* --- BiZ9_CORE_CONFIG-END --- */
 /* --- PHOTO-SIZE-START --- */
 PHOTO_SIZE_ALBUM={title_url:"",size:0};
@@ -126,9 +129,9 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 /* --- APP EXPRESS END --- */
 /* --- APP ROUTES START --- */
-app.use('/', index);
-app.use('/shop', product);
+app.use('/', index)
 app.use('/item', item);
+app.use('/shop', product);
 app.use('/event', event);
 app.use('/blog', blog_post);
 app.use('/service', service);

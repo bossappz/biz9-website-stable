@@ -56,7 +56,57 @@
                                 <span class="badge bg-primary card-date"  id='biz_lbl_blog_post_date'></span>
                                 <p class="card-text" id='biz_lbl_blog_post_note'></p>
                             </div>
+                            <div class="card-body">
+                                <div  id="prod-reviews">
+                                    <h4 class="title" id='biz_lbl_review_count'></h4>
+                                    <!--Reviews Container-->
+                                    <div class="comments-area" id='comment__container'>
+                                    </div>
+                                    <!-- Comment Form -->
+                                    <div class="shop-comment-form">
+                                        <hr/>
+                                        <h4>Add Your Comments</h4>
+                                        <form method="post" action="#">
+                                            <div class="row clearfix">
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                                    <label>Rating *</label>
+                                                    <select id="biz_sel_review_rating">
+                                                        <option value="default" disabled selected>Stars</option>
+                                                        <option value="1">1</option>
+                                                        <option value="2">2</option>
+                                                        <option value="3">3</option>
+                                                        <option value="4">4</option>
+                                                        <option value="5">5</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                                    <label>Email*</label>
+                                                    <input type="text" id="biz_tb_review_email" placeholder="myemail@gmail.com" required>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                                    <label>Name *</label>
+                                                    <input type="text" id="biz_tb_review_name" placeholder="Joe Smith" required>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+                                                    <label>Location*</label>
+                                                    <input type="text" id="biz_tb_review_location" placeholder="New York City, New York" required>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                    <label>Your Comments*</label>
+                                                    <textarea id="biz_tb_review_comment" placeholder=""></textarea>
+                                                </div>
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-group">
+                                                    <button class="theme-btn btn-style-one" type="submit" id="biz_btn_review_add"><span class="txt">Submit</span></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                            </div>
+
                         </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -65,8 +115,8 @@
             </div>
         </div>
         <!-- navbar -->
-         <%- include ('_header') %>
-       <div class="container">
+        <%- include ('_header') %>
+        <div class="container">
             <section>
                 <div style='float:right;margin-left:10px;width:100%;'>
                     <button type="button" class="btn btn-primary rounded-pill" data-bs-toggle="modal" data-bs-target="#biz_modal_blog_post_edit"><i class="fas fa-plus"></i>Add New</button>

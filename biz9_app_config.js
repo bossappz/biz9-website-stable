@@ -5,18 +5,18 @@ const APP_TITLE='BiZ9-Website';
 const APP_PORT="1901";
 const APP_CLOUD_BUCKET='bappz';
 /* --- APP CONFIG END  --- */
-/* --- ENV FILE START --- */
+/* --- FILE START --- */
 const FILE_SAVE_PATH=__dirname+"/public/uploads/";//prod
 //const FILE_URL="/uploads/"; //prod
 const FILE_URL="https://"+APP_CLOUD_BUCKET+".s3.amazonaws.com/" //aws_s3_url
-/* --- ENV FILE END --- */
+/* --- FILE END --- */
 /* --- BIZ9 CONFIG START --- */
 const BIZ_MAP=true;
 /* --- BIZ9 CONFIG END --- */
-/* --- ENV EMAILZ START --- */
+/* --- EMAILZ START --- */
 const EMAIL_SENDER="contact@biz9framework.com";
 const EMAIL_REPLY="contact@biz9framework.com";
-/* --- ENV EMAILZ START --- */
+/* --- EMAILZ START --- */
 /* --- MONGO START --- */
 const MONGO_IP='localhost';  // OS_ENV = process.env.BIZ9_BOX_IP_217; local = 'localhost'; ip_address = '0.0.0.0'
 const MONGO_USERNAME_PASSWORD=''; // local = ''; remote = 'ban:1234567@'
@@ -29,14 +29,15 @@ const SSH_KEY_FILE="";
 const REDIS_URL="0.0.0.0";
 const REDIS_PORT="27019";
 /* --- REDIS END --- */
-/* --- ENV AWS START --- */
+/* --- AWS START --- */
 const AWS_S3_SAVE=true;
 const AWS_S3_BUCKET=APP_CLOUD_BUCKET;
 const AWS_KEY="";
 const AWS_SECRET="";
 const AWS_REGION='us-east-2';
-/* --- ENV AWS END --- */
+/* --- AWS END --- */
 /* --- BREVO-START --- */
+//const BREVO_KEY="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";
 const BREVO_KEY="";
 const BREVO_FORM_SEND_SUBJECT ='Brevo Mail Message Test';
 const BREVO_ORDER_SEND_TEMPLATE_ID='7';

@@ -4,6 +4,35 @@ router.get('/ping',function(req, res) {
     res.send({'biz9-web':'ping'});
     res.end();
 });
+//9_blog_post_detail//9_detail
+router.get('/get_biz_item/:title_url',function(req, res) {
+    var helper = biz9.get_helper(req);
+    helper.blog_post = biz9.get_new_item(DT_BLOG_POST,0);
+    async.series([
+        function(call){
+            biz9.get_client_db(function(error,_client_db){
+                client_db=_client_db;
+                db = client_db.db(helper.app_title_id);
+                call();
+            });
+        },
+        function(call){
+            biz9.get_blog_post(db,helper.title_url,function(error,data){
+                helper.blog_post=data;
+                call();
+            });
+        },
+        function(call){
+            biz9.close_client_db(client_db,function(error){
+                call();
+            });
+        },
+    ],
+        function(err, results){
+            res.send({helper:helper});
+            res.end();
+        });
+});
 //9_blog_all
 router.get('/',function(req, res) {
     res.redirect('/blog/all/1');
@@ -184,6 +213,7 @@ router.get('/:title_url',function(req, res) {
             res.end();
         });
 });
+//9_list
 router.get('/list/:page_current',function(req, res) {
     var helper = biz9.get_helper(req);
     async.series([
@@ -209,7 +239,7 @@ router.get('/list/:page_current',function(req, res) {
                 call();
             });
         }
-       ],
+    ],
         function(err, results){
             res.send({helper:helper});
             res.end();

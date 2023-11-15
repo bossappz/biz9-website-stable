@@ -14,6 +14,7 @@ $(document).ready(function() {
         obj_form.field_value_4=$('#biz_txt_message').val();
         obj_form.customer_name=$('#biz_txt_first_name').val() + " " + $('#biz_txt_last_name').val();
         obj_form.customer_email=$('#biz_txt_email').val();
+        //obj_form.customer_id=get_user().customer_id;
         if(!obj_form.field_value_1){
             alert('First name required.');
         }
@@ -40,8 +41,8 @@ $(document).ready(function() {
                     customer_name:obj_form.customer_name
                 },
                 success: function(data){
-                    if(data.helper.error){
-                        alert(data.helper.error);
+                    if(data.helper.validation_message){
+                        alert(data.helper.validation_message);
                     }else{
                         alert('Thanks for contacting us! We will get in touch with you shortly.');
                     }

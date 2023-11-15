@@ -1,4 +1,5 @@
 load_test();
+load_data();
 function load_test(){
     clear_fields();
     tbl_id=get_id(999);
@@ -12,7 +13,6 @@ function clear_fields(){
     $('#biz_txt_photofilename').val('');
     $('#biz_txt_note').val('');
 }
-load_data();
 function load_data(){
     url = "blog/list/1";
     cloud_get_url(url,{},function(biz_data){
@@ -22,7 +22,7 @@ function load_data(){
             const blog_post_item = get_blog_post_item(obj_item);
             document.querySelector('.blog__container').insertAdjacentHTML("beforeend", blog_post_item);
             bind_blog_post_delete_event(obj_item.tbl_id);
-            bind_blog_post_detail_event(obj_item.tbl_id);
+            bind_blog_post_detail_event(obj_item.tbl_id,obj_item.title_url);
             bind_blog_post_edit_event(obj_item.tbl_id);
         });
     });
@@ -43,18 +43,26 @@ function load_data(){
             });
         });
     }
-    function bind_blog_post_detail_event(tbl_id){
+    function bind_blog_post_detail_event(tbl_id,title_url){
         $('#biz_btn_open_blog_'+tbl_id).click(function(event){
             obj={};
             obj.tbl_id = tbl_id;
             obj.data_type=DT_BLOG_POST;
-            cloud_get(obj.data_type,obj.tbl_id,function(data){
-                $('#biz_lbl_blog_post_title').html(data.title);
-                $('#biz_lbl_blog_post_image').attr('src',data.photo_obj.mid_url);
-                $('#biz_lbl_blog_post_sub_note').html(data.sub_note);
-                $('#biz_lbl_blog_post_note').html(data.note);
-                $('#biz_lbl_blog_post_date').html(data.date_obj.full_date_update + " " + data.date_obj.time_update);
+            url='blog/get_biz_item/'+title_url;
+            cloud_get_url(url,{},function(biz_data){
+                $('#biz_lbl_blog_post_title').html(biz_data.blog_post.title);
+                $('#biz_lbl_blog_post_image').attr('src',biz_data.blog_post.photo_obj.mid_url);
+                $('#biz_lbl_blog_post_sub_note').html(biz_data.blog_post.sub_note);
+                $('#biz_lbl_blog_post_note').html(biz_data.blog_post.note);
+                $('#biz_lbl_blog_post_date').html(biz_data.blog_post.date_obj.full_date_update + " " + biz_data.blog_post.date_obj.time_update);
+                $('#biz_lbl_review_count').html(biz_data.blog_post.review_obj.review_list.length+" Reviews");
+                biz_data.blog_post.review_obj.review_list.map((obj_item) => {
+                    const review_item = get_review_item(obj_item);
+                    document.querySelector('#comment__container').insertAdjacentHTML("beforeend", review_item);
+                });
                 $('#biz_modal_blog_post_detail').modal('show');
+                bind_review_add_event(biz_data.blog_post.data_type,biz_data.blog_post.tbl_id);
+                bind_review_test();
             });
         });
     }
@@ -75,6 +83,7 @@ function load_data(){
         obj.tbl_id = 0;
         obj.data_type = DT_BLOG_POST;
         obj.title = $('#biz_txt_title').val();
+        obj.title_url = get_title_url(obj.title);
         obj.sub_note = $('#biz_txt_sub_note').val();
         obj.note = $('#biz_txt_note').val();
         obj.photofilename = $('#biz_txt_photofilename').val();
@@ -84,7 +93,6 @@ function load_data(){
         });
         return false;
     });
-
     $('.txt_update_product_cart').on('input',function(e){
     });
     $('#btn_pay_checkout').click( function() {
@@ -92,7 +100,6 @@ function load_data(){
     $('#btn_update_cart').click(function(event){
         window.location.reload();
     });
-    // a function for creating a new card
     const get_blog_post_item = ({
         tbl_id,
         photo_url,
@@ -120,5 +127,6 @@ function load_data(){
   </div>
 </div>
 </div>`;
+
 }
 
